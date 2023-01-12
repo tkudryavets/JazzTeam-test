@@ -41,7 +41,7 @@ export class CalendarComponent implements OnInit, OnDestroy, DoCheck {
     this.days = [];
 
     
-    if(firstDay == 0){
+    if(!firstDay){
       for (let i = 6; i > 0; i--){
         if(!day.getMonth()){
           this.firstWeek.push(
@@ -82,48 +82,39 @@ export class CalendarComponent implements OnInit, OnDestroy, DoCheck {
 
       for(let i = 1; this.firstWeek.length < 7; i++){
         let day1 = this.plans.find((el) => new Date(el.date).getTime() == new Date(day.getFullYear(), day.getMonth(), i).getTime());
-        if (day1){
-          this.firstWeek.push(day1);
-        }
-        else {
-          this.firstWeek.push(
-          { date: new Date(day.getFullYear(), day.getMonth(), i),
+          this.firstWeek.push(day1 || { date: new Date(day.getFullYear(), day.getMonth(), i),
             advent: '',
-            participants: ''}
-          );
-        }
+            participants: ''});
       }
     }
 
 
-    if(firstDay != 0) {
+    if(firstDay) {
       for(let i = (this.firstWeek[this.firstWeek.length - 1].date as Date).getDate() + 1; i <= daysAmount; i++) {
-        let day1 = this.plans.find((el) => new Date(el.date).getTime() == new Date(day.getFullYear(), day.getMonth(), i).getTime());
-      if (day1){
-        this.days.push(day1);
+         this.days.push(this.plans.find((el) => new Date(el.date).getTime() == new Date(day.getFullYear(), day.getMonth(), i).getTime()) ||
+            { date: new Date(day.getFullYear(), day.getMonth(), i),
+              advent: '',
+              participants: ''}
+          );
       }
-      else {
-        this.days.push(
-          { date: new Date(day.getFullYear(), day.getMonth(), i),
-            advent: '',
-            participants: ''}
-            );
-          }
-        }
     }
     else {
       for(let i = 2; i <= daysAmount; i++) {
-        let day1 = this.plans.find((el) => new Date(el.date).getTime() == new Date(day.getFullYear(), day.getMonth(), i).getTime());
-        if (day1){
-        this.days.push(day1);
-      }
-      else {
-        this.days.push(
+      //  let day1 = this.plans.find((el) => new Date(el.date).getTime() == new Date(day.getFullYear(), day.getMonth(), i).getTime());
+       // if (day1){
+        this.days.push(this.plans.find((el) => new Date(el.date).getTime() == new Date(day.getFullYear(), day.getMonth(), i).getTime()) ||
           { date: new Date(day.getFullYear(), day.getMonth(), i),
             advent: '',
             participants: ''}
-            );
-      }
+        );
+      // }
+      // else {
+      //   this.days.push(
+      //     { date: new Date(day.getFullYear(), day.getMonth(), i),
+      //       advent: '',
+      //       participants: ''}
+      //       );
+      // }
     } 
   }
   }

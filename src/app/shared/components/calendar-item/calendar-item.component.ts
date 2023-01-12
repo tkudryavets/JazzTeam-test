@@ -17,7 +17,7 @@ export class CalendarItemComponent implements DoCheck {
 
   protected readonly week = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
 
-  protected copyDay= {date: new Date(),
+  protected copyDay = {date: new Date(),
     advent: '',
     participants: ''};
 
